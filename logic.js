@@ -1,5 +1,5 @@
 /**
- * Sudoku Logic Engine (Advanced Learning Version)
+ * Sreeta's Sudoku Logic Engine (Advanced Analytical Version)
  */
 
 const SudokuLogic = (() => {
@@ -164,10 +164,9 @@ const SudokuLogic = (() => {
             if (!step) break;
             if (step.index !== undefined) {
                 b[step.index] = step.value;
-            } else if (step.eliminations) {
-                // For logic-only solvability, we'd need a more complex candidate tracker
-                // Simplified: if we find ANY logical step, it helps. 
-                // In real implementation, we'd apply the eliminations and continue.
+            } else {
+                // For logic-only solvability check, we'd need to simulate eliminations. 
+                // Simplified for now.
                 return true; 
             }
         }
@@ -207,5 +206,34 @@ const SudokuLogic = (() => {
         return true;
     }
 
-    return { generate, findLogicalStep, calculateCandidates, isValid };
+    /**
+     * Check for all board conflicts (rules violation)
+     */
+    function findConflicts(board) {
+        const conflicts = new Set();
+        for (let i = 0; i < 81; i++) {
+            if (board[i] === 0) continue;
+            const r = getRow(i), c = getCol(i), b = getBox(i);
+            const val = board[i];
+            
+            // Check row
+            for (let j = 0; j < 9; j++) {
+                const idx = r * 9 + j;
+                if (idx !== i && board[idx] === val) { conflicts.add(i); conflicts.add(idx); }
+            }
+            // Check col
+            for (let j = 0; j < 9; j++) {
+                const idx = j * 9 + c;
+                if (idx !== i && board[idx] === val) { conflicts.add(i); conflicts.add(idx); }
+            }
+            // Check box
+            const boxIndices = getIndicesInBox(b);
+            for (let idx of boxIndices) {
+                if (idx !== i && board[idx] === val) { conflicts.add(i); conflicts.add(idx); }
+            }
+        }
+        return Array.from(conflicts);
+    }
+
+    return { generate, findLogicalStep, calculateCandidates, isValid, findConflicts };
 })();
