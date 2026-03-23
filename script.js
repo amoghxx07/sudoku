@@ -157,7 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 cell.classList.add('fixed');
                 cell.textContent = val;
             } else if (val !== 0) {
-                cell.textContent = val;
+                const numSpan = document.createElement('span');
+                numSpan.className = 'placed-number';
+                numSpan.textContent = val;
+                cell.appendChild(numSpan);
                 if (val !== state.solution[i]) cell.classList.add('error');
             } else {
                 const noteGrid = document.createElement('div');

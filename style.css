@@ -146,27 +146,53 @@ main {
     align-items: center;
     justify-content: center;
     font-size: 1.8rem;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.15s ease, transform 0.1s ease, color 0.15s ease;
+}
+
+.cell span.placed-number {
+    animation: popIn 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 
 .cell:nth-child(3n) { border-right: 2px solid var(--subgrid-border); }
 .cell:nth-child(n+19):nth-child(-n+27), .cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid var(--subgrid-border); }
 
-.cell.selected { background-color: var(--selected-bg) !important; color: white; }
-.cell.peer-highlight { background-color: var(--peer-highlight); }
-.cell.highlight { background-color: rgba(138, 0, 255, 0.15); color: var(--accent-primary); }
+.cell.selected { background-color: var(--selected-bg) !important; color: white; transition: background-color 0.1s ease; }
+.cell.peer-highlight { background-color: var(--peer-highlight); transition: background-color 0.1s ease; }
+.cell.highlight { background-color: rgba(138, 0, 255, 0.15); color: var(--accent-primary); transition: background-color 0.15s ease; }
 .cell.fixed { background-color: var(--fixed-bg); color: var(--fixed-text); font-weight: 700; }
-.cell.error { color: var(--error-color); animation: shake 0.4s; }
+.cell.error { color: var(--error-color); animation: subtleError 0.2s ease; }
+
+@keyframes subtleError {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); color: #fff; background-color: rgba(244, 63, 94, 0.1); }
+}
 
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-4px); }
-    75% { transform: translateX(4px); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
 }
 
 /* Note Grid */
 .note-grid { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; height: 100%; padding: 4px; }
-.note-item { font-size: 0.65rem; color: var(--note-color); display: flex; align-items: center; justify-content: center; }
+.note-item { 
+    font-size: 0.65rem; 
+    color: var(--note-color); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.note-item.removing {
+    opacity: 0;
+    transform: scale(0.5);
+}
 
 /* Numpad */
 .numpad { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin-top: 1.5rem; }
