@@ -3,18 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zen Sudoku - Analytical Mastery</title>
+    <title>Zen Sudoku Mastery</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="mode-focus">
     <div class="app-container">
         <header>
-            <div class="logo">Zen Sudoku</div>
-            <div class="game-info">
-                <span id="difficulty-display">Medium</span>
-                <span id="timer">00:00</span>
+            <div class="header-left">
+                <div class="logo">Zen Sudoku</div>
+                <div class="mastery-badge">Level <span id="mastery-level">1</span>: <span id="mastery-rank">Novice</span></div>
+            </div>
+            <div class="header-right">
+                <div id="pressure-info" class="hidden">
+                    <span class="lives">Lives: <span id="lives-count">3</span></span>
+                    <span class="streak">Streak: <span id="streak-count">0</span></span>
+                </div>
+                <div id="timer">00:00</div>
             </div>
         </header>
+
+        <nav class="mode-selector">
+            <button id="btn-focus" class="mode-btn active">Focus Mode</button>
+            <button id="btn-pressure" class="mode-btn">High-Pressure</button>
+        </nav>
 
         <main>
             <section class="game-area">
@@ -37,30 +51,36 @@
             </section>
 
             <aside class="sidebar">
-                <div class="controls-panel">
-                    <select id="difficulty-select">
-                        <option value="easy">Easy</option>
-                        <option value="medium" selected>Medium</option>
-                        <option value="hard">Hard</option>
-                    </select>
-                    <button id="new-game-btn" class="primary-btn">New Game</button>
+                <div class="learning-engine">
+                    <h3>Learning Engine</h3>
+                    <div id="hint-display" class="hint-display">
+                        <p class="hint-text">Select a cell or request a logical step.</p>
+                    </div>
+                    <button id="hint-btn" class="secondary-btn">Explain Next Step</button>
                 </div>
 
-                <div class="tools-panel">
-                    <button id="note-mode-btn" class="toggle-btn">
-                        Notes: <span id="note-status">OFF</span>
-                    </button>
-                    <button id="hint-btn" class="secondary-btn">Hint (Explain Logic)</button>
+                <div class="analysis-panel">
+                    <h3>Mistake Analysis</h3>
+                    <div class="analysis-content">
+                        <div class="stat-item">Guesses: <span id="stat-guesses">0</span></div>
+                        <div class="stat-item">Logic Misses: <span id="stat-logic-misses">0</span></div>
+                        <div class="stat-item">Note Overuse: <span id="stat-note-overuse">0%</span></div>
+                    </div>
                 </div>
 
-                <div id="hint-display" class="hint-display">
-                    <p class="hint-text">Select a cell to start.</p>
+                <div class="mastery-panel">
+                    <h3>Your Progression</h3>
+                    <div class="mp-bar-container">
+                        <div id="mp-bar" class="mp-bar"></div>
+                    </div>
+                    <div class="mp-text"><span id="current-mp">0</span> / <span id="next-level-mp">1000</span> MP</div>
+                    <div id="unlocked-techs" class="tech-list">
+                        <!-- Tech badges -->
+                    </div>
                 </div>
 
-                <div class="stats-panel">
-                    <h3>Performance</h3>
-                    <div class="stat-item">Games Won: <span id="stats-won">0</span></div>
-                    <div class="stat-item">Best Time: <span id="stats-best">--:--</span></div>
+                <div class="game-controls">
+                    <button id="new-game-btn" class="primary-btn">New Mastery Game</button>
                 </div>
             </aside>
         </main>
@@ -69,7 +89,7 @@
     <!-- Cheering Cat -->
     <div class="cat-cheerleader">
         <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJtZzZxeXlzZ2x4Z3lzZ2x4Z3lzZ2x4Z3lzZ2x4Z3lzZ2x4Z3lpZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKMGpx6YJ5z5SgM/giphy.gif" alt="Dancing Cat">
-        <div class="cat-bubble">Go for it! 🐾</div>
+        <div class="cat-bubble">Focus, Master! 🐾</div>
     </div>
 
     <script src="logic.js"></script>
