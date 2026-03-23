@@ -67,16 +67,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function render() {
         const cells = boardElement.querySelectorAll('.cell');
+        const selectedVal = selectedIdx !== null ? board[selectedIdx] : null;
+
         cells.forEach((cell, i) => {
             cell.classList.remove('selected', 'fixed', 'error', 'highlight');
             cell.innerHTML = '';
 
+            const currentVal = board[i];
+
             if (initialBoard[i] !== 0) {
                 cell.classList.add('fixed');
                 cell.textContent = initialBoard[i];
-            } else if (board[i] !== 0) {
-                cell.textContent = board[i];
-                if (board[i] !== solution[i]) cell.classList.add('error');
+            } else if (currentVal !== 0) {
+                cell.textContent = currentVal;
+                if (currentVal !== solution[i]) cell.classList.add('error');
             } else {
                 // Render Notes
                 const noteGrid = document.createElement('div');
@@ -90,7 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 cell.appendChild(noteGrid);
             }
 
-            if (selectedIdx === i) cell.classList.add('selected');
+            if (selectedIdx === i) {
+                cell.classList.add('selected');
+            } else if (selectedVal !== null && selectedVal !== 0 && currentVal === selectedVal) {
+                cell.classList.add('highlight');
+            }
         });
 
         checkWin();
