@@ -1,6 +1,6 @@
 {
-  "name": "Zen Sudoku",
-  "short_name": "ZenSudoku",
+  "name": "Sreeta's Sudoku",
+  "short_name": "SreetaSudoku",
   "description": "Top-tier Sudoku with logical puzzle generation and mastery tools.",
   "start_url": "./index.html",
   "display": "standalone",
