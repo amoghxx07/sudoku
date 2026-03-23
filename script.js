@@ -68,12 +68,25 @@ document.addEventListener('DOMContentLoaded', () => {
     function render() {
         const cells = boardElement.querySelectorAll('.cell');
         const selectedVal = selectedIdx !== null ? board[selectedIdx] : null;
+        
+        let selectedRow = -1;
+        let selectedCol = -1;
+        let selectedBox = -1;
+        
+        if (selectedIdx !== null) {
+            selectedRow = Math.floor(selectedIdx / 9);
+            selectedCol = selectedIdx % 9;
+            selectedBox = Math.floor(selectedRow / 3) * 3 + Math.floor(selectedCol / 3);
+        }
 
         cells.forEach((cell, i) => {
-            cell.classList.remove('selected', 'fixed', 'error', 'highlight');
+            cell.classList.remove('selected', 'fixed', 'error', 'highlight', 'peer-highlight');
             cell.innerHTML = '';
 
             const currentVal = board[i];
+            const currentRow = Math.floor(i / 9);
+            const currentCol = i % 9;
+            const currentBox = Math.floor(currentRow / 3) * 3 + Math.floor(currentCol / 3);
 
             if (initialBoard[i] !== 0) {
                 cell.classList.add('fixed');
@@ -96,8 +109,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (selectedIdx === i) {
                 cell.classList.add('selected');
-            } else if (selectedVal !== null && selectedVal !== 0 && currentVal === selectedVal) {
-                cell.classList.add('highlight');
+            } else if (selectedIdx !== null) {
+                // Highlight Identical Numbers
+                if (selectedVal !== null && selectedVal !== 0 && currentVal === selectedVal) {
+                    cell.classList.add('highlight');
+                } 
+                // Highlight Peer Cells (Row, Col, Box)
+                else if (currentRow === selectedRow || currentCol === selectedCol || currentBox === selectedBox) {
+                    cell.classList.add('peer-highlight');
+                }
             }
         });
 
